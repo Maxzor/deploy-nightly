@@ -1,6 +1,6 @@
 /**
  * This file is licensed under the MIT License.
- * 
+ *
  * Some code taken from https://github.com/actions/upload-release-asset
  */
 
@@ -9,9 +9,9 @@ const { GitHub } = require("@actions/github");
 const fs = require("fs");
 
 /**
- * 
- * @param {GitHub} github 
- * @param {*} name 
+ *
+ * @param {GitHub} github
+ * @param {*} name
  */
 async function uploadAsset(github, name) {
 	const url = core.getInput("upload_url", { required: true });
@@ -63,7 +63,8 @@ async function run() {
 		let numFound = 0;
 		for (let i = 0; i < assets.data.length; i++) {
 			const asset = assets.data[i];
-			if (asset.name == name) {
+      core.info(numFound + ":" + asset.name);
+s			if (asset.name == name) {
 				// not commit hash or date in filename, always force upload here
 				existingAssetNameId = asset.id;
 			} else if (asset.name.startsWith(nameStart) && asset.name.endsWith(nameEnd)) {
