@@ -63,7 +63,7 @@ async function run() {
 		let numFound = 0;
 		for (let i = 0; i < assets.data.length; i++) {
 			const asset = assets.data[i];
-      core.info(numFound + "::" + asset.name);
+      core.info(numFound + ":::" + asset.name);
 			if (asset.name == name) {
 				// not commit hash or date in filename, always force upload here
 				existingAssetNameId = asset.id;
