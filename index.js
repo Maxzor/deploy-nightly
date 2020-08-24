@@ -55,7 +55,9 @@ async function run() {
 			per_page: 100
 		});
 
-		assets.data.sort((a, b) => b.created_at.localCompare(a.created_at));
+		// we should be able to sort quite safely on iso-8601 strings
+		// we need to sort descending to delete oldest assets
+		assets.data.sort((a, b) => b.created_at.localeCompare(a.created_at));
 
 		let toDelete = [];
 		let existingAssetNameId = undefined;
@@ -113,7 +115,8 @@ async function run() {
 
 		core.setOutput("uploaded", "yes");
 		core.setOutput("url", url);
-	} catch (error) {
+	}
+	catch (error) {
 		core.setFailed(error.message);
 	}
 }
