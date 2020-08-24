@@ -55,7 +55,7 @@ async function run() {
 			per_page: 100
 		});
 
-		assets.data.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+		assets.data.sort((a, b) => b.created_at.localCompare(a.created_at));
 
 		let toDelete = [];
 		let existingAssetNameId = undefined;
@@ -63,16 +63,18 @@ async function run() {
 		let numFound = 0;
 		for (let i = 0; i < assets.data.length; i++) {
 			const asset = assets.data[i];
-      core.info(numFound + ":" + asset.name);
+			core.info(numFound + ":" + asset.name);
 			if (asset.name == name) {
 				// not commit hash or date in filename, always force upload here
 				existingAssetNameId = asset.id;
-			} else if (asset.name.startsWith(nameStart) && asset.name.endsWith(nameEnd)) {
+			}
+			else if (asset.name.startsWith(nameStart) && asset.name.endsWith(nameEnd)) {
 				if (asset.name.endsWith("-" + hash + nameEnd)) {
 					core.info("Current commit already released, exiting");
 					core.setOutput("uploaded", "no");
 					return;
-				} else {
+				}
+				else {
 					numFound++;
 					if (numFound >= maxReleases) {
 						core.info("Queuing old asset " + asset.name + " for deletion");
