@@ -40,6 +40,7 @@ async function run() {
 		const placeholderStart = name.indexOf("$$");
 		const nameStart = name.substr(0, placeholderStart);
 		const nameEnd = name.substr(placeholderStart + 2);
+		core.info(name + " " + nameStart + " " nameEnd);
 
 		const github = new GitHub(process.env.GITHUB_TOKEN);
 		const hash = process.env.GITHUB_SHA.substr(0, 6);
@@ -54,6 +55,7 @@ async function run() {
 			release_id: parseInt(releaseId),
 			per_page: 100
 		});
+		core.info(assets);
 
 		// we should be able to sort quite safely on iso-8601 strings
 		// we need to sort descending to delete oldest assets
