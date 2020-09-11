@@ -40,7 +40,7 @@ async function run() {
 		const placeholderStart = name.indexOf("$$");
 		const nameStart = name.substr(0, placeholderStart);
 		const nameEnd = name.substr(placeholderStart + 2);
-		core.info(name + " " + nameStart + " " nameEnd);
+		core.info(name + " " + nameStart + " " + nameEnd);
 
 		const github = new GitHub(process.env.GITHUB_TOKEN);
 		const hash = process.env.GITHUB_SHA.substr(0, 6);
